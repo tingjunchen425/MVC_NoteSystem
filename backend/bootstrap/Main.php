@@ -6,10 +6,7 @@
     use vendor\DB;
 
     class Main{
-        public function __construct(){
-            
-        }
-        static function run($act){
+        static function run(){
             $conf = parse_ini_file(__DIR__ . '/../vendor/.env');
             DB::$dbName = $conf['dbname'];
             DB::$dbHost = $conf['dbhost'];
