@@ -25,7 +25,7 @@
             $title = $_POST['title'];
             $context = $_POST['context'];
             $status = $_POST['status'];
-            return $this->notesmodel->newNote($noteID,$ownerID,$title,$context,$status);
+            return $this->notesmodel->newNote($ownerID,$title,$context,$status);
         }
         public function updateNote(){
             $noteID = $_POST['noteID'];
@@ -37,5 +37,21 @@
         public function removeNote(){
             $noteID = $_POST['noteID'];
             return $this->notesmodel->removeNote($noteID);
+        }
+        public function query(){
+            $field = $_POST['field'];
+            $value = $_POST['value'];
+            return $this->notesmodel->query($field,$value);
+        }
+        public function getPublicNotes(){
+            return $this->notesmodel->getPublicNotes();
+        }
+        public function getUserNotes(){
+            $userID = $_POST['userID'];
+            return $this->notesmodel->getUserNotes($userID);
+        }
+        public function viewNote(){
+            $noteID = $_POST['noteID'];
+            return $this->notesmodel->viewNote($noteID);
         }
     }

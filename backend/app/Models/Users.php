@@ -31,4 +31,9 @@
             $args = [$userID];
             return DB::delete($sql,$args);
         }
+        public function query($field, $value){
+            $sql = "SELECT * FROM user WHERE $field = ?";
+            $args = [$value];
+            return DB::select($sql,$args);
+        }
     }

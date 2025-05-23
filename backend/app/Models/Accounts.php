@@ -28,4 +28,18 @@
             $args = [$userID];
             return DB::delete($query, $args);
         }
+        public function login($account, $password){
+            $query = "SELECT * FROM account WHERE account = ? AND password = ?";
+            $args = [$account, $password];
+            return DB::select($query, $args);
+        }
+        public function getUserInfo($userID){
+            $sql = "SELECT `user`.`userID`, userName,`user`.`roleID`,roleName,account,password 
+                        FROM `user`
+                        JOIN `role` on (`user`.`roleID` = `role`.`roleID`)
+                        JOIN `account` on (`user`.`userID` = `account`.`userID`)
+                        WHERE `user`.`userID` = ?;";
+            $args = [$userID];
+            return DB::select($sql, $args);
+        }
     }

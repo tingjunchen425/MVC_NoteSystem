@@ -34,4 +34,9 @@
             $userID = $_POST['userID'];
             return $this->usermodel->removeUser($userID);
         }
+        public function query(){
+            $field = $_POST['field'];
+            $value = $_POST['value'];
+            return $this->usermodel->query($field,$value);
+        }
     }

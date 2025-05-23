@@ -35,4 +35,17 @@
             $userID = $_POST['userID'];
             return $this->accountmodel->removeAccount($userID);
         }
+        public function login(){
+            $account = $_POST['account'];
+            $password = $_POST['password'];
+            $response = $this->accountmodel->login($account,$password);
+            if ($response['status'] == 200 && count($response['result']) == 1){
+                $userID = $response['result'][0]['userID'];
+                $userInfo = $this->accountmodel->getUserInfo($userID);
+                return $this->response(200, "Login successful", $userInfo['result']);
+            }
+            else{
+                return $this->response(401, "Login failed", null);
+            }
+        }
     }

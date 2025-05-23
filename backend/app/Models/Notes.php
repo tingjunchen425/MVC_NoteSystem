@@ -14,8 +14,8 @@
             return DB::select($sql, $args);
         }
         public function newNote($ownerID, $title, $context, $status){
-            $sql = "INSERT INTO `note`(`noteID`, `ownerID`, `title`, `context`, `status`, `updateTime`) VALUES (?,?,?,?,?,?)";
-            $args = [null, $ownerID, $title, $context, $status];
+            $sql = "INSERT INTO `note`(`ownerID`, `title`, `context`, `status`) VALUES (?,?,?,?)";
+            $args = [$ownerID, $title, $context, $status];
             return DB::insert($sql, $args);
         }
         public function updateNote($noteID, $title, $context, $status){
@@ -27,5 +27,31 @@
             $sql = "DELETE FROM `note` WHERE `noteID` = ?";
             $args = [$noteID];
             return DB::delete($sql, $args);
+        }
+        public function query($field, $value){
+            $sql = "SELECT * FROM `note` WHERE `$field` = ?";
+            $args = [$value];
+            return DB::select($sql, $args);
+        }
+
+        public function getPublicNotes(){
+            $sql = "SELECT * FROM `note` 
+                        JOIN `user` WHERE `note`.`ownerID` = `user`.`userID`
+                        HAVING `note`.`status` = 'public';";
+            $args = null;
+            return DB::select($sql, $args);
+        }
+
+        public function getUserNotes($userID){
+            $sql = "SELECT * FROM `note` WHERE `ownerID` = ?";
+            $args = [$userID];
+            return DB::select($sql, $args);
+        }
+        public function viewNote($noteID){
+            $sql = "SELECT * FROM `note` 
+                        JOIN `user` on (`user`.`userID` = `note`.`ownerID`)
+                        WHERE `note`.`noteID` = ?;";
+            $args = [$noteID];
+            return DB::select($sql, $args);
         }
     }
