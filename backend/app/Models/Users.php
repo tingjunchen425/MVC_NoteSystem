@@ -36,4 +36,10 @@
             $args = [$value];
             return DB::select($sql,$args);
         }
+
+        public function getSimpleUser(){
+            $sql = "SELECT * FROM user WHERE roleID = '002'";
+            $args = null;
+            return DB::select($sql,$args);
+        }
     }

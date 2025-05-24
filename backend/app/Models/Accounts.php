@@ -42,4 +42,15 @@
             $args = [$userID];
             return DB::select($sql, $args);
         }
+
+        public function checkAccount($account){
+            $sql = "SELECT * FROM account WHERE account = ?";
+            $args = [$account];
+            return DB::select($sql, $args);
+        }
+        public function getUserID($account){
+            $sql = "SELECT userID FROM account WHERE account = ?";
+            $args = [$account];
+            return DB::select($sql, $args);
+        }
     }

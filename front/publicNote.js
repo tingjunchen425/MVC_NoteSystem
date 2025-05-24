@@ -104,4 +104,4 @@ function viewNotePage(result){
     document.getElementById("display").innerHTML = str;
 }
 
-export {getPublicNote};
+export {getPublicNote, viewNote};

@@ -1,5 +1,7 @@
 import config from "./config.js";
 import status from "./status.js";
+import setting from "./setting.js";
+import { getAllUsers } from "./manageUser.js";
 
 function login(account, password) {
     let url = config('login');
@@ -31,12 +33,23 @@ function login(account, password) {
 
 function userPage() {
     let info = status('read');
-    const userPage = `
+    let userPage = `
         ${info['userName']}
         <button id='setting'>⚙️</button>
     `
+    if (info['roleID'] == '001') {
+        userPage += `<button id='manageuser'>管理使用者</button>`;
+    }
     document.getElementById("user_info").innerHTML = userPage;
+    document.getElementById("setting").onclick = function() {
+        setting();
+    }
+    if (info['roleID'] == '001') {
+        document.getElementById("manageuser").onclick = function() {
+            getAllUsers();
+        }
+    }
 }
 
 
-export {login};
+export {login, userPage};

@@ -39,4 +39,7 @@
             $value = $_POST['value'];
             return $this->usermodel->query($field,$value);
         }
+        public function getSimpleUser(){
+            return $this->usermodel->getSimpleUser();
+        }
     }

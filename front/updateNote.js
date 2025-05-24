@@ -1,14 +1,15 @@
 import config from "./config.js";
 
-export default function updateNote(noteID,ownerID, title, content, status){
+export default function updateNote(noteID, title, context, status){
     let url = config('updateNote');
+    console.log(noteID, title, context, status);
     let data = {
         'noteID': noteID,
-        'ownerID': ownerID,
         'title': title,
-        'context': content,
+        'context': context,
         'status': status
     }
+    console.log(data);
     axios.post(url, Qs.stringify(data))
     .then(res => {
         let response = res['data'];

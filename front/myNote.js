@@ -3,6 +3,7 @@ import config from "./config.js";
 import deleteNote from "./deleteNote.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { newNotePage } from "./newNote.js";
+import { getCollbatorNote } from "./collbatorNote.js";
 
 function getMyNote(){
     let info = status('read');
@@ -39,6 +40,7 @@ function myNotePage(result){
                 <th>更新時間</th>
                 <th>類型</th>
                 <th><button id="newNote">新增筆記</button></th>
+                <th><button id="viewCollbatorNote">查看共編筆記</button></th>
             <tr>
     `
     result.forEach(element => {
@@ -70,6 +72,9 @@ function myNotePage(result){
     });
     document.getElementById("newNote").onclick = function(){
         newNotePage();
+    }
+    document.getElementById("viewCollbatorNote").onclick = function(){
+        getCollbatorNote();
     }
 }
 

@@ -1,5 +1,6 @@
 import updateNote from './updateNote.js';
 import config from "./config.js";
+import { updateCollbators, deleteCollbator, addCollbator} from "./collbators.js";
 
 function updateNotePage(noteID){
     let url = config('getNotes');
@@ -12,7 +13,21 @@ function updateNotePage(noteID){
         console.log(response);
         if (response['status'] == 200) {
             console.log(response['result']);
-            updatePage(response['result']);
+            url = config('getCollbators');
+            data = {
+                'noteID': noteID
+            }
+            axios.post(url, Qs.stringify(data))
+            .then(res => {
+                let collbator = res['data'];
+                console.log(collbator);
+                if (collbator['status'] == 200) {
+                    updatePage(response['result'], collbator['result']);
+                }
+                else {
+                    alert('查詢共編者失敗');
+                }
+            })
         }
         else {
             alert('查詢失敗');
@@ -20,11 +35,59 @@ function updateNotePage(noteID){
     })
 }
 
-function updatePage(response){
+function updatePage(response,collbator){
+    console.log(response);
     let result = response[0];
     let str = `
         <h1><input type="text" id="title" value="${result['title']}"></h1>
         `
+    str += `
+        <table>
+            <tr>
+                <th>共編者</th>
+                <th>名稱</th>
+                <th>權限</th>
+                <th></th>
+                <th><button id="addCollbator">新增共編者</button></th>
+            </tr>
+            <tr id="newCollbatorInfo"></tr>
+    `
+    if (collbator.length != 0){
+        collbator.forEach(element => {
+            str += `
+                <tr>
+                    <td>${element['collbatorID']}</td>
+                    <td>${element['userName']}</td>
+            `
+            if (element['collbatorRole'] == 'viewer'){
+                str += `
+                    <td>
+                        <select name="collbatorRole" id="${element['collbatorID']}">
+                            <option value="viewer" selected>檢視者</option>
+                            <option value="editor">編輯者</option>
+                        </select>
+                    </td>
+                `
+            }
+            else if (element['collbatorRole'] == 'editor'){
+                str += `
+                    <td>
+                        <select name="collbatorRole" id="${element['collbatorID']}">
+                            <option value="viewer">檢視者</option>
+                            <option value="editor" selected>編輯者</option>
+                        </select>
+                    </td>
+                `
+            }
+            str += `
+                    <td><button name="deleteCollbator" value=${element['collbatorID']}>刪除</button></td>
+                    <td><button name="updateCollbator" value=${element['collbatorID']}>更新</button></td>
+                </tr>
+            `
+        });
+        
+    }
+    str += `</table>`;
     if (result['status'] == 'public'){
         str += `
             <select id="status">
@@ -50,10 +113,44 @@ function updatePage(response){
         let title = document.getElementById("title").value;
         let context = document.getElementById("context").value;
         let noteID = result['noteID'];
-        let ownerID = result['ownerID'];
         let status = document.getElementById("status").value;
-        console.log(noteID, ownerID, title, context, status);
-        updateNote(noteID, ownerID, title, context, status);
+        console.log(noteID, title, context, status);
+        updateNote(noteID, title, context, status);
+    }
+    document.getElementsByName("deleteCollbator").forEach(element => {
+        element.onclick = function(){
+            let collbatorID = element.value;
+            deleteCollbator(result['noteID'], collbatorID);
+        }
+    });
+    document.getElementsByName("updateCollbator").forEach(element => {
+        element.onclick = function(){
+            let collbatorID = element.value;
+            let collbatorRole = document.getElementById(collbatorID).value;
+            console.log(collbatorID, collbatorRole);
+            updateCollbators(result['noteID'], collbatorID, collbatorRole);
+        }
+    });
+    document.getElementById('addCollbator').onclick = function(){
+        let str = `
+            <td><input type="text" id="newCollbatorID"></td>
+            <td>-</td>
+            <td>
+                <select name="collbatorRole" id="newCollbatorRole">
+                    <option value="viewer">檢視者</option>
+                    <option value="editor">編輯者</option>
+                </select>
+            </td>
+            <td></td>
+            <td><button id="add">新增</button></td>
+        `
+        document.getElementById("newCollbatorInfo").innerHTML = str;
+        document.getElementById("add").onclick = function(){
+            let collbatorID = document.getElementById("newCollbatorID").value;
+            let collbatorRole = document.getElementById("newCollbatorRole").value;
+            console.log(collbatorID, collbatorRole);
+            addCollbator(result['noteID'], collbatorID, collbatorRole);
+        }
     }
 }
 

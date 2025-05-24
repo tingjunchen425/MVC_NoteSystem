@@ -4,11 +4,14 @@
     $router -> register("updateUser", "Users" , "updateUser");
     $router -> register("removeUser", "Users" , "removeUser");
     $router -> register("userQuery", "Users" , "query");
+    $router -> register("getSimpleUser", "Users" , "getSimpleUser");
 
     $router -> register("getAccounts", "Accounts" , "getAccounts");
     $router -> register("newAccount", "Accounts" , "newAccount");
     $router -> register("updateAccount", "Accounts" , "updateAccount");
     $router -> register("removeAccount", "Accounts" , "removeAccount");
+    $router -> register("checkAccount", "Accounts" , "checkAccount");
+    $router -> register("getUserID", "Accounts" , "getUserID");
 
     $router -> register("getNotes", "Notes" , "getNotes");
     $router -> register("newNote", "Notes" , "newNote");
@@ -20,3 +23,9 @@
     $router -> register("getUserNotes", "Notes" , "getUserNotes");
 
     $router -> register("login", "Accounts" , "login");
+
+    $router -> register("getCollbators", "Collbators" , "getCollbators");
+    $router -> register("newCollbator", "Collbators" , "newCollbator");
+    $router -> register("deleteCollbator", "Collbators" , "deleteCollbator");
+    $router -> register("updateCollbatorRole", "Collbators" , "updateCollbatorRole");
+    $router -> register("getCollbateNote", "Collbators" , "getCollbateNote");
