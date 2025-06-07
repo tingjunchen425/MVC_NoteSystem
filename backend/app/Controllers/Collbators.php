@@ -1,7 +1,7 @@
 <?php
-    namespace App\Controllers;
+    namespace app\Controllers;
     use vendor\Controller;
-    use App\Models\Collbators as CollbatorsModel;
+    use app\Models\Collbators as CollbatorsModel;
 
     class Collbators extends Controller{
         private $collbatorsModel;

@@ -1,1 +1,2 @@
 backend/vendor/.env
+/backend/vendor/firebase/php-jwt/

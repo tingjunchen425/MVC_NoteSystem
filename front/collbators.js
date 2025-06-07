@@ -1,5 +1,8 @@
 import config from "./config.js";
 import { updateNotePage } from "./updateNotePage.js";
+import Request from "./Request.js";
+import {doLogin} from './doLogin.js';
+import userInfo from "./userInfo.js";
 
 function updateCollbators(noteID, collbatorID, collbatorRole) {
     let data = {
@@ -7,16 +10,34 @@ function updateCollbators(noteID, collbatorID, collbatorRole) {
         'collbatorID': collbatorID,
         'collbatorRole': collbatorRole
     };
-    let url = config('updateCollbatorRole');
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('updateCollbatorRole'), Qs.stringify(data))
         .then(res => {
             let response = res['data'];
             console.log(response);
+            
             if (response['status'] == 200) {
+                if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+                }
+                else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                }
                 alert('更新成功');
                 updateNotePage(noteID);
             } else {
-                alert('更新失敗');
+                // alert('更新失敗');
+                // if (window.localStorage){
+                // window.localStorage.setItem("jwtToken", response['token']);
+                // }
+                // else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                // }
             }
         })
         .catch(err => {
@@ -29,16 +50,33 @@ function deleteCollbator(noteID, collbatorID) {
         'noteID': noteID,
         'collbatorID': collbatorID
     };
-    let url = config('deleteCollbator');
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('deleteCollbator'), Qs.stringify(data))
         .then(res => {
             let response = res['data'];
             console.log(response);
             if (response['status'] == 200) {
+                if (window.localStorage){
+                    window.localStorage.setItem("jwtToken", response['token']);
+                }
+                else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                }
                 alert('刪除成功');
                 updateNotePage(noteID);
             } else {
-                alert('刪除失敗');
+                // if (window.localStorage){
+                //     window.localStorage.setItem("jwtToken", response['token']);
+                // }
+                // else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                // }
+                // alert('刪除失敗');
             }
         })
         .catch(err => {
@@ -52,16 +90,33 @@ function addCollbator(noteID, collbatorID, collbatorRole) {
         'collbatorID': collbatorID,
         'collbatorRole': collbatorRole
     };
-    let url = config('newCollbator');
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('newCollbator'), Qs.stringify(data))
         .then(res => {
             let response = res['data'];
             console.log(response);
             if (response['status'] == 200) {
+                if (window.localStorage){
+                    window.localStorage.setItem("jwtToken", response['token']);
+                }
+                else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                }
                 alert('新增成功');
                 updateNotePage(noteID);
             } else {
-                alert('新增失敗');
+                // if (window.localStorage){
+                //     window.localStorage.setItem("jwtToken", response['token']);
+                // }
+                // else{
+                    alert('請重新登入');
+                    userInfo('clear');
+                    doLogin();
+                    return;
+                // }
+                // alert('新增失敗');
             }
         })
         .catch(err => {

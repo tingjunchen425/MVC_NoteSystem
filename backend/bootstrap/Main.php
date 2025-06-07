@@ -1,7 +1,8 @@
 <?php
     namespace bootstrap;
 
-    require_once __DIR__ . '/../vendor/Autoload.php';
+    require_once __DIR__ . '/../vendor/autoload.php';
+    use Middlewares\AuthMiddleware;
     use vendor\Router;
     use vendor\DB;
 
@@ -19,9 +20,32 @@
             else{
                 $act = "_no_act";
             }
-            $router = new Router();
-            require_once __DIR__ . '/../routes/web.php';
-            $response = $router->run($act);
+            if ($act == "getPublicNotes" or $act == "viewNote"){
+                $router = new Router();
+                require_once __DIR__ . "/../routes/web.php";
+                $response = $router->run($act);
+            }
+            else{
+                $response = $responseToken = AuthMiddleware::checkToken();
+                if($responseToken['status'] == 200) {
+                    if($act != "no_action") { 
+                        $router = new Router();
+                        require_once __DIR__ . "/../routes/web.php";
+                        $response = $router->run($act);
+                    }
+                    $response['token'] = $responseToken['token'];
+                }
+                else if($act == "login"){
+                    $response = AuthMiddleware::doLogin();
+                }
+                else{
+                    $response = array(
+                        'status' => 403,
+                        'message' => 'Access denied'
+                    );
+                }
+            }
             echo json_encode($response);
+
         }
     }

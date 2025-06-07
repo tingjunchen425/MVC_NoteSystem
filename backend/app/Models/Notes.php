@@ -1,5 +1,5 @@
 <?php
-    namespace App\Models;
+    namespace app\Models;
     use vendor\DB;
     
     class Notes{

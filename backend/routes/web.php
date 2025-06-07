@@ -22,7 +22,7 @@
     $router -> register("viewNote", "Notes" , "viewNote");
     $router -> register("getUserNotes", "Notes" , "getUserNotes");
 
-    $router -> register("login", "Accounts" , "login");
+    $router -> register("getUserInfo", "Accounts" , "getUserInfo");
 
     $router -> register("getCollbators", "Collbators" , "getCollbators");
     $router -> register("newCollbator", "Collbators" , "newCollbator");

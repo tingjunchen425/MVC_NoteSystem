@@ -1,5 +1,7 @@
 import config from "./config.js";
-import status from "./status.js";
+import userInfo from "./userInfo.js";
+import Request from "./Request.js";
+import {doLogin} from './doLogin.js';
 
 function newNotePage(){
     let str = `
@@ -23,28 +25,45 @@ function newNotePage(){
 }
 
 function newNote(){
-    let info = status('read');
+    let info = userInfo('read');
     let title = document.getElementById("title").value;
     let context = document.getElementById("context").value;
     let noteStatus = document.getElementById("status").value;
     let ownerID = info['userID'];
-    let url = config('newNote');
     let data = {
         'ownerID': ownerID,
         'title': title,
         'context': context,
         'status': noteStatus    
     }
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('newNote'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
         if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
             alert('新增成功');
             document.getElementById("display").innerHTML = '';
         }
         else {
-            alert('新增失敗');
+            // if (window.localStorage){
+            //     window.localStorage.setItem("jwtToken", response['token']);
+            // }
+            // else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            // }
+            // alert('新增失敗');
         }
     })
     .catch(err => {

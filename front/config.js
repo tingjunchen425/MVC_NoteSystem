@@ -1,4 +1,4 @@
 export default function config(act){
-    let url = '../backend/public/index.php?act='+act;
+    let url = '/index.php?act='+act;
     return url;
 }

@@ -1,7 +1,9 @@
 import config from "./config.js";
+import Request from "./Request.js";
+import {doLogin} from './doLogin.js';
+import userInfo from "./userInfo.js";
 
 export default function updateNote(noteID, title, context, status){
-    let url = config('updateNote');
     console.log(noteID, title, context, status);
     let data = {
         'noteID': noteID,
@@ -10,16 +12,34 @@ export default function updateNote(noteID, title, context, status){
         'status': status
     }
     console.log(data);
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('updateNote'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
         if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
             alert('更新成功');
             document.getElementById("display").innerHTML = '';
         }
         else {
-            alert('更新失敗');
+            // if (window.localStorage){
+            //     window.localStorage.setItem("jwtToken", response['token']);
+            // }
+            // else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            // }
+            // alert('更新失敗');
         }
     })
 }

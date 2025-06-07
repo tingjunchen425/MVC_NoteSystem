@@ -1,31 +1,59 @@
 import updateNote from './updateNote.js';
 import config from "./config.js";
 import { updateCollbators, deleteCollbator, addCollbator} from "./collbators.js";
+import Request from './Request.js';
+import {doLogin} from './doLogin.js';
+import userInfo from "./userInfo.js";
 
 function updateNotePage(noteID){
-    let url = config('getNotes');
     let data = {
         'noteID': noteID
     }
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('getNotes'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
         if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
             console.log(response['result']);
-            url = config('getCollbators');
             data = {
                 'noteID': noteID
             }
-            axios.post(url, Qs.stringify(data))
+            Request().post(config('getCollbators'), Qs.stringify(data))
             .then(res => {
                 let collbator = res['data'];
                 console.log(collbator);
                 if (collbator['status'] == 200) {
+                    if (window.localStorage){
+                        window.localStorage.setItem("jwtToken", collbator['token']);
+                    }
+                    else{
+                        alert('請重新登入');
+                        userInfo('clear');
+                        doLogin();
+                        return;
+                    }
                     updatePage(response['result'], collbator['result']);
                 }
                 else {
-                    alert('查詢共編者失敗');
+                    // if (window.localStorage){
+                    //     window.localStorage.setItem("jwtToken", collbator['token']);
+                    // }
+                    // else{
+                        alert('請重新登入');
+                        userInfo('clear');
+                        doLogin();
+                        return;
+                    // }
+                    // alert('查詢共編者失敗');
                 }
             })
         }

@@ -1,30 +1,49 @@
-import status from "./status.js";
 import config from "./config.js";
 import deleteNote from "./deleteNote.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { newNotePage } from "./newNote.js";
 import { getCollbatorNote } from "./collbatorNote.js";
+import userInfo from "./userInfo.js";
+import Request from "./Request.js";
+import {doLogin} from './doLogin.js';
 
 function getMyNote(){
-    let info = status('read');
-    if (info['loginStatus'] == 'false'){
-        alert('請先登入');
-        return;
-    }
-    let url = config('getUserNotes');
+    let info = userInfo('read');
+    // if (info['loginStatus'] == 'false'){
+    //     alert('請先登入');
+    //     return;
+    // }
     let data = {
         'userID': info['userID']
     }
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('getUserNotes'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
         if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
             console.log(response['result']);
             myNotePage(response['result']);
         }
         else {
-            alert('查詢失敗');
+            // if (window.localStorage){
+            //     window.localStorage.setItem("jwtToken", response['token']);
+            // }
+            // else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            // }
+            // alert('查詢失敗');
         }
     })
     .catch(err => {

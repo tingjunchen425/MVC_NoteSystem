@@ -1,28 +1,47 @@
 import config from "./config.js";
-import status from "./status.js";
+import userInfo from "./userInfo.js";
+import Request from "./Request.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { viewNote } from "./publicNote.js";
+import {doLogin} from './doLogin.js';
 
 function getCollbatorNote(){
-    let info = status('read');
-    if (info['loginStatus'] == 'false'){
-        alert('請先登入');
-        return;
-    }
-    let url = config('getCollbateNote');
+    let info = userInfo('read');
+    // if (info['loginStatus'] == 'false'){
+    //     alert('請先登入');
+    //     return;
+    // }
     let data = {
         'collbatorID': info['userID']
     }
-    axios.post(url, Qs.stringify(data))
+    Request().post(config('getCollbateNote'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
         if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
             console.log(response['result']);
             collbatorNotePage(response['result']);
         }
         else {
-            alert('查詢失敗');
+            // if (window.localStorage){
+            //     window.localStorage.setItem("jwtToken", response['token']);
+            // }
+            // else{
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            // }
+            // alert('查詢失敗');
         }
     })
 }
