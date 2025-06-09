@@ -22,7 +22,7 @@ function getCollbatorNote(){
             if (window.localStorage){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
-            else{
+            else if (response['status'] == 401){
                 alert('請重新登入');
                 userInfo('clear');
                 doLogin();
@@ -81,16 +81,56 @@ function collbatorNotePage(result){
     document.getElementById("display").innerHTML = str;
     document.getElementsByName("update").forEach(element => {
         element.onclick = function(){
-            let noteID = element.value;
-            console.log(noteID);
-            updateNotePage(noteID);
+            if (window.localStorage){
+                Request().get("index.php")
+                .then(res => {
+                    const response = res['data'];
+                    if(response['status'] == 200){
+                        window.localStorage.setItem("jwtToken", response['token']);
+                        let noteID = element.value;
+                        console.log(noteID);
+                        updateNotePage(noteID);
+                    }
+                    else if(response['status'] == 401){
+                        console.log(response)
+                        userInfo('clear');
+                        alert('請重新登入');
+                        doLogin();
+                        return;
+                     }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+            }
+            
         }
     })
     document.getElementsByName("view").forEach(element => {
         element.onclick = function(){
-            let noteID = element.value;
-            console.log(noteID);
-            viewNote(noteID);
+            if (window.localStorage){
+                Request().get("index.php")
+                .then(res => {
+                    const response = res['data'];
+                    if(response['status'] == 200){
+                        window.localStorage.setItem("jwtToken", response['token']);
+                        let noteID = element.value;
+                        console.log(noteID);
+                        viewNote(noteID);
+                    }
+                    else if(response['status'] == 401){
+                        console.log(response)
+                        userInfo('clear');
+                        alert('請重新登入');
+                        doLogin();
+                        return;
+                     }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+            }
+            
         }
     });
 }

@@ -19,7 +19,8 @@ function updateCollbators(noteID, collbatorID, collbatorRole) {
                 if (window.localStorage){
                 window.localStorage.setItem("jwtToken", response['token']);
                 }
-                else{
+                else if (response['status'] == 401){
+                    // if (window.localStorage){
                     alert('請重新登入');
                     userInfo('clear');
                     doLogin();
@@ -66,7 +67,8 @@ function deleteCollbator(noteID, collbatorID) {
                 }
                 alert('刪除成功');
                 updateNotePage(noteID);
-            } else {
+            } 
+            else if (response['status'] == 401) {
                 // if (window.localStorage){
                 //     window.localStorage.setItem("jwtToken", response['token']);
                 // }

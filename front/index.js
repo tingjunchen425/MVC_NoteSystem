@@ -3,11 +3,15 @@ import {doLogin} from './doLogin.js';
 import startPage from './startPage.js';
 import userPage from './userPage.js';
 import { getPublicNote } from './publicNote.js';
+import { getMyNote } from './myNote.js';
 
 window.onload = function(){
     document.getElementById("root").innerHTML = startPage();
     document.getElementById("publicnote").onclick = function(){
         getPublicNote();
+    }
+    document.getElementById("mynote").onclick = function () {
+        getMyNote();
     }
     if(window.localStorage){
         Request().get("index.php")

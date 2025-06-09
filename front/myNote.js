@@ -1,5 +1,5 @@
 import config from "./config.js";
-import deleteNote from "./deleteNote.js";
+import deleteNote from "./deletePublicNote.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { newNotePage } from "./newNote.js";
 import { getCollbatorNote } from "./collbatorNote.js";
@@ -25,7 +25,7 @@ function getMyNote(){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -38,7 +38,7 @@ function getMyNote(){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
             // else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -77,6 +77,25 @@ function myNotePage(result){
     document.getElementById("display").innerHTML = str;
     document.getElementsByName("doUpdate").forEach(element => {
         element.onclick = function(){
+                Request().get("index.php")
+                .then(res => {
+                    const response = res['data'];
+                    if(response['status'] == 200){
+                        if (window.localStorage){
+                            window.localStorage.setItem("jwtToken", response['token']);
+                        }
+                    }
+                    else if(response['status'] == 401){
+                        console.log(response)
+                        userInfo('clear');
+                        alert('請重新登入');
+                        doLogin();
+                        return;
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                })
             let noteID = element.value;
             console.log(noteID);
             updateNotePage(noteID);
@@ -90,9 +109,47 @@ function myNotePage(result){
         }
     });
     document.getElementById("newNote").onclick = function(){
+        Request().get("index.php")
+        .then(res => {
+            const response = res['data'];
+            if(response['status'] == 200){
+                if (window.localStorage){
+                    window.localStorage.setItem("jwtToken", response['token']);
+                }
+            }
+            else if(response['status'] == 401){
+                console.log(response)
+                userInfo('clear');
+                alert('請重新登入');
+                doLogin();
+                return;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        })
         newNotePage();
     }
     document.getElementById("viewCollbatorNote").onclick = function(){
+        Request().get("index.php")
+        .then(res => {
+            const response = res['data'];
+            if(response['status'] == 200){
+                if (window.localStorage){
+                    window.localStorage.setItem("jwtToken", response['token']);
+                }
+            }
+            else if(response['status'] == 401){
+                console.log(response)
+                userInfo('clear');
+                alert('請重新登入');
+                doLogin();
+                return;
+            }
+        })
+        .catch(err => {
+            console.error(err);
+        })
         getCollbatorNote();
     }
 }

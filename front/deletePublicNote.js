@@ -3,16 +3,11 @@ import Request from "./Request.js";
 import {doLogin} from './doLogin.js';
 import userInfo from "./userInfo.js";
 
-export default function updateNote(noteID, title, context, status){
-    console.log(noteID, title, context, status);
+export default function deletePublicNote(noteID){
     let data = {
-        'noteID': noteID,
-        'title': title,
-        'context': context,
-        'status': status
+        'noteID': noteID
     }
-    console.log(data);
-    Request().post(config('updateNote'), Qs.stringify(data))
+    Request().post(config('deletePublicNote'), Qs.stringify(data))
     .then(res => {
         let response = res['data'];
         console.log(response);
@@ -26,7 +21,7 @@ export default function updateNote(noteID, title, context, status){
                 doLogin();
                 return;
             }
-            alert('更新成功');
+            alert('刪除成功');
             document.getElementById("display").innerHTML = '';
         }
         else if (response['status'] == 401) {
@@ -39,7 +34,7 @@ export default function updateNote(noteID, title, context, status){
                 doLogin();
                 return;
             // }
-            // alert('更新失敗');
+            // alert('刪除失敗');
         }
     })
 }

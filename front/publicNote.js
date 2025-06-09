@@ -1,8 +1,9 @@
 import config from "./config.js";
 import Request from "./Request.js";
 import userInfo from "./userInfo.js";
-import deleteNote from "./deleteNote.js";
+import deleteNote from "./deletePublicNote.js";
 import {doLogin} from './doLogin.js';
+import deletePublicNote from "./deletePublicNote.js";
 
 function getPublicNote() {
     Request().get(config('getPublicNotes'))
@@ -12,28 +13,22 @@ function getPublicNote() {
         if (response['status'] == 200) {
 
             if (window.localStorage){
-                Request().get("index.php")
-                .then(res => {
-                    const response = res['data'];
-                    if(response['status'] == 200){
-                        window.localStorage.setItem("jwtToken", response['token']);
-                    }
-                    else{
-                        userInfo('clear');
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                })
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else{
+                onsole.log(response)
+                userInfo('clear');
             }
 
-            let result = response['result'];
-            console.log(result);
-            publicNotePage(result);
+            
         }
         else{
             console.log(response['message']);
         }
+        console.log(response);
+        let result = response['result'];
+        console.log(result);
+        publicNotePage(result);
     })
     .catch(err => {
         console.log(err);
@@ -58,11 +53,9 @@ function publicNotePage(result){
                     <td>${element['userName']}</td>
                     <td>${element['updateTime']}</td>
                     <td><button name="viewNote" value=${element['noteID']}>查看</button></td>
+                    <td><button name='deleteNote' value=${element['noteID']}>移除</button></td>
+                </tr>
                 `
-        if (res['roleID'] == '001'){
-            str += `<td><button name='deleteNote' value=${element['noteID']}>移除</button></td>` 
-        }
-        str += "</tr>"
     });
     str += '</table>';
     document.getElementById("display").innerHTML = str;
@@ -73,15 +66,13 @@ function publicNotePage(result){
             viewNote(noteID);
         }
     });
-    if (res['roleID'] == '001'){
-        document.getElementsByName("deleteNote").forEach(element => {
-            element.onclick = function(){
-                let noteID = element.value;
-                console.log(noteID);
-                deleteNote(noteID);
-            }
-        });
-    }
+    document.getElementsByName("deleteNote").forEach(element => {
+        element.onclick = function(){
+            let noteID = element.value;
+            console.log(noteID);
+            deletePublicNote(noteID);
+        }
+    });
         
 }
 
@@ -96,6 +87,9 @@ function viewNote(noteID){
         console.log(response);
         if (response['status'] == 200) {
             let result = response['result'];
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
             console.log(result);
             viewNotePage(result);
         }

@@ -24,7 +24,7 @@ export default function deleteNote(noteID){
             alert('刪除成功');
             document.getElementById("display").innerHTML = '';
         }
-        else {
+        else if (response['status'] == 401) {
             // if (window.localStorage){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }

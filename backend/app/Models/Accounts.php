@@ -34,11 +34,12 @@
             return DB::select($query, $args);
         }
         public function getUserInfo($userID){
-            $sql = "SELECT `user`.`userID`, userName,`user`.`roleID`,roleName,account,password 
-                        FROM `user`
-                        JOIN `role` on (`user`.`roleID` = `role`.`roleID`)
+            $sql = "SELECT `user`.`userID`, `user`.`userName`,`user_role`.`roleID`,roleName,account,password 
+                    	FROM `user`
+                        JOIN `user_role` on (`user`.`userID` = `user_role`.`userID`)
+                        JOIN `role` on (`role`.`roleID` = `user_role`.`roleID`)
                         JOIN `account` on (`user`.`userID` = `account`.`userID`)
-                        WHERE `user`.`userID` = ?;";
+                        WHERE `user`.`userID` = ?";
             $args = [$userID];
             return DB::select($sql, $args);
         }

@@ -43,7 +43,7 @@ function updateNotePage(noteID){
                     }
                     updatePage(response['result'], collbator['result']);
                 }
-                else {
+                else if (collbator['status'] == 401) {
                     // if (window.localStorage){
                     //     window.localStorage.setItem("jwtToken", collbator['token']);
                     // }

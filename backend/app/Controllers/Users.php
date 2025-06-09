@@ -21,7 +21,6 @@
         }
         public function newUser(){
             $userID = $_POST['userID'];
-            $roleID = $_POST['roleID'];
             $userName = $_POST['userName'];
             return $this->usermodel->newUser($userID,$roleID,$userName);
         }

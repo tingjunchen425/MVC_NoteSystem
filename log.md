@@ -1,3 +1,12 @@
+## version 2.1
+- 2025/06/09
+### Create
+- 修正了登入逾時機制
+- 修復了部分bug
+### To-do list
+- 後端權限控管
+- css
+
 ## version 2.0
 - 2025/06/07
 ### Create

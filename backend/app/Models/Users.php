@@ -9,13 +9,16 @@
             return DB::select($sql,$args);
         }
         public function getUser($id){
-            $sql = "SELECT * FROM user WHERE userID = ?";
+            $sql = "SELECT `user`.`userID`,`user`.`userName`,`user_role`.`roleID`
+                        FROM `user` 
+                        JOIN `user_role` on (`user`.`userID` = `user_role`.`userID`)
+                        WHERE `user`.`userID` =  ?";
             $args = [$id];
             return DB::select($sql,$args);
         }
 
-        public function newUser($userID, $roleID, $userName){
-            $sql = "INSERT INTO user (userID, roleID, userName) VALUES (?, ?, ?)";
+        public function newUser($userID, $userName){
+            $sql = "INSERT INTO user (userID, userName) VALUES (?, ?, ?)";
             $args = [$userID, $roleID, $userName];
             return DB::insert($sql,$args);
         }

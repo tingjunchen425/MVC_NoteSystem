@@ -20,15 +20,15 @@
             else{
                 $act = "_no_act";
             }
-            if ($act == "getPublicNotes" or $act == "viewNote"){
-                $router = new Router();
-                require_once __DIR__ . "/../routes/web.php";
-                $response = $router->run($act);
-            }
-            else{
+            // if ($act == "getPublicNotes" or $act == "viewNote"){
+            //     $router = new Router();
+            //     require_once __DIR__ . "/../routes/web.php";
+            //     $response = $router->run($act);
+            // }
+            // else{
                 $response = $responseToken = AuthMiddleware::checkToken();
                 if($responseToken['status'] == 200) {
-                    if($act != "no_action") { 
+                    if($act != "_no_act") { 
                         $router = new Router();
                         require_once __DIR__ . "/../routes/web.php";
                         $response = $router->run($act);
@@ -38,13 +38,18 @@
                 else if($act == "login"){
                     $response = AuthMiddleware::doLogin();
                 }
+                else if($act == "getPublicNotes" or $act == "viewNote"){
+                    $router = new Router();
+                    require_once __DIR__ . "/../routes/web.php";
+                    $response = $router->run($act);
+                }
                 else{
                     $response = array(
-                        'status' => 403,
+                        'status' => 401,
                         'message' => 'Access denied'
                     );
                 }
-            }
+            // }
             echo json_encode($response);
 
         }
