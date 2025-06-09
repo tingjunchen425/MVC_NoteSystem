@@ -7,13 +7,24 @@ body {
     padding: 0;
 }
 
-.top_bar {
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: #e3eaf2;
-    padding: 16px 24px;
+    padding: 0 24px;
+    border-bottom: 1px solid #d0d7de;
+    min-height: 72px; /* 原本約48px，放大1.5倍 */
+}
+
+/* 移除 top_bar 的背景與 padding，避免重複 */
+.top_bar {
+    background: none;
+    padding: 0;
     display: flex;
     align-items: center;
     gap: 16px;
-    border-bottom: 1px solid #d0d7de;
+    border: none;
 }
 
 .top_bar button {
@@ -114,10 +125,34 @@ h1, h2, h3 {
     color: #2a3a4a;
 }
 
+/* 使用者資訊區塊樣式 */
 #user_info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-left: auto;
     font-size: 1rem;
     color: #4a5a6a;
+}
+
+.user_name {
+    font-weight: 600;
+    margin-right: 8px;
+}
+
+.user_setting button {
+    background: #e3eaf2;
+    border: 1px solid #bfc8d6;
+    border-radius: 50%;
+    padding: 6px 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s, border 0.2s;
+}
+
+.user_setting button:hover {
+    background: #d2e3f5;
+    border-color: #a5b4c8;
 }
 
 @media (max-width: 700px) {

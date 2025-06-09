@@ -75,10 +75,7 @@ function publicNotePage(result){
             deletePublicNote(noteID);
         }
     });
-    document.getElementById("setting").onclick = function(){
-        let info = userInfo('read');
-        userSetting(info['userID']);
-    }
+    
         
 }
 
@@ -117,10 +114,7 @@ function viewNotePage(result){
         </div>
     `
     document.getElementById("display").innerHTML = str;
-    document.getElementById("setting").onclick = function(){
-        let info = userInfo('read');
-        userSetting(info['userID']);
-    }
+    
 }
 
 export {getPublicNote, viewNote};

@@ -33,14 +33,7 @@ export default function getUserInfo(account){
                         <span class="user_name">${info['userName']}</span>
                         <span class="user_setting"><button id="setting">⚙️</button></span>
                     `;
-                    if(info['roleID'] == '001'){
-                        document.getElementById('display').innerHTML = `
-                            <button id="manage_user">使用者管理</button>
-                        `;
-                        document.getElementById('manage_user').onclick = function(){
-                            viewUsers();
-                        }
-                    }
+                    
                     document.getElementById("setting").onclick = function(){
                         userSetting(info['userID']);
                     }

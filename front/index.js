@@ -4,6 +4,10 @@ import startPage from './startPage.js';
 import userPage from './userPage.js';
 import { getPublicNote } from './publicNote.js';
 import { getMyNote } from './myNote.js';
+import { viewUsers } from './manageUser.js';
+import userInfo from './userInfo.js';
+import userSetting from './userSetting.js';
+import config from './config.js';
 
 window.onload = function(){
     document.getElementById("root").innerHTML = startPage();
@@ -23,7 +27,7 @@ window.onload = function(){
             if(response['status'] == 200){
                 window.localStorage.setItem("jwtToken", response['token']);
                 alert("歡迎回來");
-                userPage();
+                userPage();                    
             }
             else{
                 doLogin();

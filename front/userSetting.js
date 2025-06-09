@@ -33,19 +33,9 @@ export default function userSetting(userID) {
                         userInfo('write', userData['userID'], userName, info['roleID'], info['roleName']); // 修正這裡
                         document.getElementById("user_info").innerHTML = `
                             <span class="user_name">${userName}</span>
-                            <span class="user_setting"><button id="user_setting">⚙️</button></span>
+                            <span class="user_setting"><button id="setting">⚙️</button></span>
                         `;
-                        if (info['roleID'] == '001'){
-                            document.getElementById('display').innerHTML = `
-                                <button id="manage_user">使用者管理</button>
-                            `;
-                            document.getElementById('manage_user').onclick = function(){
-                                viewUsers();
-                            }
-                        }
-                        else{
-                            document.getElementById('display').innerHTML = '';
-                        }
+                        document.getElementById('display').innerHTML = '';
                     }
                     else if(response['status'] == 401){
                         alert("請重新登入");
