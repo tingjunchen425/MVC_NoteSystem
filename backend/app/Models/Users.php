@@ -9,7 +9,7 @@
             return DB::select($sql,$args);
         }
         public function getUser($id){
-            $sql = "SELECT `user`.`userID`,`user`.`userName`,`user_role`.`roleID`
+            $sql = "SELECT `user`.`userID`,`user`.`userName`
                         FROM `user` 
                         JOIN `user_role` on (`user`.`userID` = `user_role`.`userID`)
                         WHERE `user`.`userID` =  ?";

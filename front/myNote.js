@@ -6,6 +6,7 @@ import { getCollbatorNote } from "./collbatorNote.js";
 import userInfo from "./userInfo.js";
 import Request from "./Request.js";
 import {doLogin} from './doLogin.js';
+import userSetting from "./userSetting.js";
 
 function getMyNote(){
     let info = userInfo('read');
@@ -155,6 +156,10 @@ function myNotePage(result){
             console.error(err);
         })
         getCollbatorNote();
+    }
+    document.getElementById("setting").onclick = function(){
+        let info = userInfo('read');
+        userSetting(info['userID']);
     }
 }
 

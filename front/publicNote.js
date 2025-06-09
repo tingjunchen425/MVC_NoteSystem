@@ -4,6 +4,7 @@ import userInfo from "./userInfo.js";
 import deleteNote from "./deletePublicNote.js";
 import {doLogin} from './doLogin.js';
 import deletePublicNote from "./deletePublicNote.js";
+import userSetting from "./userSetting.js";
 
 function getPublicNote() {
     Request().get(config('getPublicNotes'))
@@ -74,6 +75,10 @@ function publicNotePage(result){
             deletePublicNote(noteID);
         }
     });
+    document.getElementById("setting").onclick = function(){
+        let info = userInfo('read');
+        userSetting(info['userID']);
+    }
         
 }
 
@@ -112,6 +117,10 @@ function viewNotePage(result){
         </div>
     `
     document.getElementById("display").innerHTML = str;
+    document.getElementById("setting").onclick = function(){
+        let info = userInfo('read');
+        userSetting(info['userID']);
+    }
 }
 
 export {getPublicNote, viewNote};

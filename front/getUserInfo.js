@@ -1,6 +1,8 @@
 import Request from "./Request.js";
 import config from "./config.js";
 import userInfo from "./userInfo.js";
+import { viewUsers } from "./manageUser.js";
+import userSetting from "./userSetting.js";
 
 export default function getUserInfo(account){
     let data = {
@@ -29,7 +31,19 @@ export default function getUserInfo(account){
                     window.localStorage.setItem("jwtToken", response['token']);
                     document.getElementById("user_info").innerHTML = `
                         <span class="user_name">${info['userName']}</span>
+                        <span class="user_setting"><button id="setting">⚙️</button></span>
                     `;
+                    if(info['roleID'] == '001'){
+                        document.getElementById('display').innerHTML = `
+                            <button id="manage_user">使用者管理</button>
+                        `;
+                        document.getElementById('manage_user').onclick = function(){
+                            viewUsers();
+                        }
+                    }
+                    document.getElementById("setting").onclick = function(){
+                        userSetting(info['userID']);
+                    }
                 }
                 else{
                     console.error("Error fetching user info:", response['message']);

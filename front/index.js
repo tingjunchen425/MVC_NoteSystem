@@ -13,6 +13,9 @@ window.onload = function(){
     document.getElementById("mynote").onclick = function () {
         getMyNote();
     }
+    document.getElementById("doLogin").onclick = function () {
+        doLogin();
+    }
     if(window.localStorage){
         Request().get("index.php")
         .then(res => {
