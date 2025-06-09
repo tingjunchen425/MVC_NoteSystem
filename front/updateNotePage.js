@@ -55,10 +55,21 @@ function updateNotePage(noteID){
                     // }
                     // alert('查詢共編者失敗');
                 }
+                else if (collbator['status'] == 403){
+                    alert('沒有權限');
+                    return;
+                }
             })
         }
-        else {
-            alert('查詢失敗');
+        else if (response['status'] == 401) {
+            alert('請重新登入');
+            userInfo('clear');
+            doLogin();
+            return;
+        }
+        else if (response['status'] == 403){
+            alert('沒有權限');
+            return;
         }
     })
 }

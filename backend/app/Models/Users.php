@@ -45,4 +45,16 @@
             $args = null;
             return DB::select($sql,$args);
         }
+
+        public function getRoles($id){
+            $sql = "SELECT roleID  FROM  `user_role` WHERE `userID`=?";
+            $args = [$id];
+            $response = DB::select($sql, $args);
+            $result = $response['result'];
+            for ($i=0; $i < count($result); $i++) { 
+                $result[$i] = $result[$i]['roleID'];    
+            }
+            $response['result'] = $result;
+            return $response;
+        }
     }

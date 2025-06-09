@@ -28,10 +28,19 @@
             // else{
                 $response = $responseToken = AuthMiddleware::checkToken();
                 if($responseToken['status'] == 200) {
-                    if($act != "_no_act") { 
-                        $router = new Router();
-                        require_once __DIR__ . "/../routes/web.php";
-                        $response = $router->run($act);
+                    if($act != "_no_act"){ 
+                        $response = AuthMiddleware::checkPrevilege($act);
+                        if($response['status'] == 200 or $act == "getPublicNotes" or $act == "viewNote"){
+                            $router = new Router();
+                            require_once __DIR__ . "/../routes/web.php";
+                            $response = $router->run($act);
+                        }
+                        else{
+                            $response = array(
+                                'status' => 403,
+                                'message' => 'Insufficient permissions'
+                            );
+                        }
                     }
                     $response['token'] = $responseToken['token'];
                 }

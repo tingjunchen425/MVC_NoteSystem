@@ -108,7 +108,7 @@ function addCollbator(noteID, collbatorID, collbatorRole) {
                 }
                 alert('新增成功');
                 updateNotePage(noteID);
-            } else {
+            } else if (response['status'] == 401) {
                 // if (window.localStorage){
                 //     window.localStorage.setItem("jwtToken", response['token']);
                 // }
@@ -119,6 +119,10 @@ function addCollbator(noteID, collbatorID, collbatorRole) {
                     return;
                 // }
                 // alert('新增失敗');
+            }
+            else if (response['status'] == 403){
+                alert('沒有權限');
+                return;
             }
         })
         .catch(err => {

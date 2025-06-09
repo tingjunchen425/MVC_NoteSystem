@@ -28,6 +28,10 @@ function getCollbatorNote(){
                 doLogin();
                 return;
             }
+            else if (response['status'] == 403){
+                alert('沒有權限');
+                return;
+            }
             console.log(response['result']);
             collbatorNotePage(response['result']);
         }

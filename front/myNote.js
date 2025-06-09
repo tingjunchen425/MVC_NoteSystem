@@ -33,7 +33,7 @@ function getMyNote(){
             console.log(response['result']);
             myNotePage(response['result']);
         }
-        else {
+        else if (response['status'] == 401){
             // if (window.localStorage){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
@@ -44,6 +44,10 @@ function getMyNote(){
                 return;
             // }
             // alert('查詢失敗');
+        }
+        else if (response['status'] == 403){
+            alert('沒有權限');
+            return;
         }
     })
     .catch(err => {

@@ -6,6 +6,7 @@ import userPage  from "./userPage.js";
 
 function doLogin(){
     document.getElementById("display").innerHTML = loginPage();
+    document.getElementById("user_info").innerHTML = ""
     document.getElementById("login").onclick = function(){
         let account = document.getElementById("account").value;
         let password = document.getElementById("password").value;

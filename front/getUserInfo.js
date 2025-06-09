@@ -9,6 +9,7 @@ export default function getUserInfo(account){
     Request().post(config('getUserID'), Qs.stringify(data))
     .then(res => {
         const response = res['data'];
+        console.log(response);
         if(response['status'] == 200){
             let userID =  response['result'][0]['userID'];
             data = {
@@ -26,6 +27,9 @@ export default function getUserInfo(account){
                         info['roleName']
                     );
                     window.localStorage.setItem("jwtToken", response['token']);
+                    document.getElementById("user_info").innerHTML = `
+                        <span class="user_name">${info['userName']}</span>
+                    `;
                 }
                 else{
                     console.error("Error fetching user info:", response['message']);

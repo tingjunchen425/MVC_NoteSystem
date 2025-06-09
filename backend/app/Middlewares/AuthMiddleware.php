@@ -5,8 +5,11 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Vendor\Controller;
 use app\Models\Accounts as AccountsModel;
+use app\Models\Users as UsersModel;
+use app\Models\Action as ActionModel;
 
 class AuthMiddleware extends Controller{
+    private static $id;
     public static function checkToken(){
         $headers = getallheaders();
         $jwt = $headers['Auth'];
@@ -14,6 +17,7 @@ class AuthMiddleware extends Controller{
         try {
             $payload = JWT::decode($jwt,new Key($secret_key, 'HS256'));
             $jwt = self::genToken($payload->data->id);
+            self::$id = $payload->data->id;
             $response['status'] = 200;
             $response['message'] = "Access granted";
             $response['token'] = $jwt;
@@ -65,4 +69,22 @@ class AuthMiddleware extends Controller{
         $jwt = JWT::encode($payload, $secret_key, 'HS256');
         return $jwt;
     }
+
+    public static function checkPrevilege($action){
+        $id = self::$id;
+        $um = new UsersModel();
+        $response = $um->getRoles($id);
+        $user_roles = $response['result'];
+        $am = new ActionModel();
+        $response = $am->getRoles($action);
+        $action_roles = $response['result'];
+        $r = array_intersect($user_roles, $action_roles);
+        if(count($r)!=0){
+            return self::response(200, '有權限');
+        }
+        else{
+            return self::response(403, '沒有權限');
+        }
+    }
+
 }

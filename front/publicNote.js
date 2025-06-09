@@ -46,6 +46,7 @@ function publicNotePage(result){
     `
     let res = userInfo('read');
     console.log(res)
+    console.log(result);
     result.forEach(element => {
         str += `
                 <tr>

@@ -1,0 +1,130 @@
+/* 基本設定 */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f9fb;
+    color: #222;
+    margin: 0;
+    padding: 0;
+}
+
+.top_bar {
+    background: #e3eaf2;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid #d0d7de;
+}
+
+.top_bar button {
+    background: #fff;
+    border: 1px solid #bfc8d6;
+    border-radius: 6px;
+    padding: 8px 18px;
+    margin-right: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s, border 0.2s;
+}
+
+.top_bar button:hover {
+    background: #f0f4fa;
+    border-color: #a5b4c8;
+}
+
+#display {
+    max-width: 900px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(180,200,220,0.08);
+    padding: 32px 40px;
+    min-height: 300px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #f9fbfd;
+    margin-bottom: 24px;
+}
+
+th, td {
+    padding: 12px 10px;
+    text-align: left;
+}
+
+th {
+    background: #eaf1f8;
+    color: #3a4a5a;
+    font-weight: 600;
+    border-bottom: 2px solid #d0d7de;
+}
+
+tr:nth-child(even) {
+    background: #f4f7fa;
+}
+
+tr:hover {
+    background: #e9f2fb;
+}
+
+button {
+    background: #e3eaf2;
+    border: 1px solid #bfc8d6;
+    border-radius: 5px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.98rem;
+    transition: background 0.2s, border 0.2s;
+}
+
+button:hover {
+    background: #d2e3f5;
+    border-color: #a5b4c8;
+}
+
+input[type="text"], input[type="password"], select, textarea {
+    border: 1px solid #cfd8e3;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 1rem;
+    background: #f7fafd;
+    margin-bottom: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+h1, h2, h3 {
+    color: #2a3a4a;
+    margin-top: 0;
+}
+
+.note {
+    background: #f4f7fa;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-top: 18px;
+    font-size: 1.08rem;
+    line-height: 1.7;
+    color: #2a3a4a;
+}
+
+#user_info {
+    margin-left: auto;
+    font-size: 1rem;
+    color: #4a5a6a;
+}
+
+@media (max-width: 700px) {
+    #display {
+        padding: 16px 6px;
+    }
+    table, th, td {
+        font-size: 0.95rem;
+    }
+}

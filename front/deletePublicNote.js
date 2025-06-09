@@ -36,5 +36,9 @@ export default function deletePublicNote(noteID){
             // }
             // alert('刪除失敗');
         }
+        else if (response['status'] == 403){
+            alert('沒有權限');
+            return;
+        }
     })
 }

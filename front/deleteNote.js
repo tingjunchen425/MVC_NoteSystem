@@ -15,7 +15,7 @@ export default function deleteNote(noteID){
             if (window.localStorage){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
-            else{
+            else {
                 alert('請重新登入');
                 userInfo('clear');
                 doLogin();
@@ -35,6 +35,10 @@ export default function deleteNote(noteID){
                 return;
             // }
             // alert('刪除失敗');
+        }
+        else if (response['status'] == 403){
+                alert('沒有權限');
+                return;
         }
     })
 }

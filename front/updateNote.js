@@ -41,5 +41,9 @@ export default function updateNote(noteID, title, context, status){
             // }
             // alert('更新失敗');
         }
+        else if (response['status'] == 403){
+            alert('沒有權限');
+            return;
+        }
     })
 }

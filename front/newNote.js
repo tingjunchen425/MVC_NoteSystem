@@ -53,7 +53,7 @@ function newNote(){
             alert('新增成功');
             document.getElementById("display").innerHTML = '';
         }
-        else {
+        else if (response['status'] == 401) {
             // if (window.localStorage){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
@@ -64,6 +64,10 @@ function newNote(){
                 return;
             // }
             // alert('新增失敗');
+        }
+        else if (response['status'] == 403){
+            alert('沒有權限');
+            return;
         }
     })
     .catch(err => {

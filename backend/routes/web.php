@@ -21,7 +21,7 @@
     $router -> register("getPublicNotes", "Notes" , "getPublicNotes");
     $router -> register("viewNote", "Notes" , "viewNote");
     $router -> register("getUserNotes", "Notes" , "getUserNotes");
-    $router -> register("deletePublicNote", "Notes" , "getUserNotes");
+    $router -> register("deletePublicNote", "Notes" , "removeNote");
 
     $router -> register("getUserInfo", "Accounts" , "getUserInfo");
 
