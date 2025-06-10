@@ -32,11 +32,12 @@ export default function userSetting(userID) {
                     if(response['status'] == 200){
                         alert("使用者名稱已更新");
                         userInfo('write', userData['userID'], userName, info['roleID'], info['roleName']); // 修正這裡
-                        document.getElementById("user_info").innerHTML = `
-                            <span class="user_name">${userName}</span>
-                            <span class="user_setting"><button id="setting">⚙️</button></span>
-                            <span id='logout' class='logout'><button id='logout'>登出</button></span>
-                        `;
+                        // document.getElementById("user_info").innerHTML = `
+                        //     <span class="user_name">${userName}</span>
+                        //     <span class="user_setting"><button id="setting">⚙️</button></span>
+                        //     <span id='logout' class='logout'><button id='logout'>登出</button></span>
+                        // `;
+                        window.location.reload();
                         document.getElementById('logout').onclick = function () {
                             userInfo("clear");
                             logout();

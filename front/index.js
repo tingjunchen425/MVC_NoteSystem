@@ -26,7 +26,7 @@ window.onload = function(){
             const response = res['data'];
             if(response['status'] == 200){
                 window.localStorage.setItem("jwtToken", response['token']);
-                alert("歡迎回來");
+                // alert("歡迎回來");
                 userPage();                    
             }
             else{
