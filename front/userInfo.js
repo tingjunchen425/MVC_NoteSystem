@@ -21,11 +21,15 @@ export default function userInfo(method, userID  = null, userName  = null, roleI
             console.log('status is null');
             return JSON.parse(window.localStorage.getItem("userInfo"));
         }
-        // if (window.localStorage.getItem("userInfo") == null){
-        //     console.log('status is null');
-        //     return currentStatus;
-        // }
-        // currentStatus = JSON.parse(window.localStorage.getItem("userInfo"));
+        else if (currentStatus['userID'] == null){
+            console.log('status userID is null');
+            console.log(JSON.parse(window.localStorage.getItem("userInfo")));
+            if (window.localStorage.getItem("userInfo") == null){
+                console.log('localStorage userInfo is null');
+                return currentStatus;
+            }
+            return JSON.parse(window.localStorage.getItem("userInfo"));
+        }
         console.log('status is not null');
         console.log(currentStatus);
         return currentStatus;

@@ -3,8 +3,16 @@ import Request from "./Request.js";
 import comfig from "./config.js";
 import getUserInfo from "./getUserInfo.js";
 import userPage  from "./userPage.js";
+import logout from "./logout.js";
 
 function doLogin(){
+    if (window.localStorage.getItem("jwtToken") != null){
+        window.localStorage.removeItem("jwtToken");
+    }
+    if (window.localStorage.getItem("userInfo") != null){
+        window.localStorage.removeItem("userInfo");
+        logout();
+    }
     document.getElementById("display").innerHTML = loginPage();
     // document.getElementById("user_info").innerHTML = ""
     document.getElementById("login").onclick = function(){

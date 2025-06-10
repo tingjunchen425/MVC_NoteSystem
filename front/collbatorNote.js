@@ -4,6 +4,7 @@ import Request from "./Request.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { viewNote } from "./publicNote.js";
 import {doLogin} from './doLogin.js';
+import updateNote from "./updateNote.js";
 
 function getCollbatorNote(){
     let info = userInfo('read');
@@ -93,7 +94,7 @@ function collbatorNotePage(result){
                         window.localStorage.setItem("jwtToken", response['token']);
                         let noteID = element.value;
                         console.log(noteID);
-                        updateNotePage(noteID);
+                        getUpadateNote(noteID);
                     }
                     else if(response['status'] == 401){
                         console.log(response)
@@ -138,5 +139,91 @@ function collbatorNotePage(result){
         }
     });
 }
+
+function getUpadateNote(noteID){
+    let data = {
+        'noteID': noteID
+    }
+    Request().post(config('getNotes'), Qs.stringify(data))
+    .then(res => {
+        let response = res['data'];
+        console.log(response);
+        if (response['status'] == 200) {
+            if (window.localStorage){
+                window.localStorage.setItem("jwtToken", response['token']);
+            }
+            else if (response['status'] == 401){
+                alert('請重新登入');
+                userInfo('clear');
+                doLogin();
+                return;
+            }
+            else if (response['status'] == 403){
+                alert('沒有權限');
+                return;
+            }
+            console.log(response['result']);
+            updateCollbatorNotePage(response['result']);
+        }
+        else {
+            console.log(response);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+    });
+}
+
+function updateCollbatorNotePage(response){
+    console.log(response);
+    let result = response[0];
+    let str = `
+        <h1><input type="text" id="title" value="${result['title']}"></h1>
+        `
+    if (result['status'] == 'public'){
+        str += `
+            <select id="status">
+                <option value="public" selected>公開</option>
+                <option value="private">私密</option>
+            </select>
+        `
+    }
+    else{
+        str += `
+            <select id="status">
+                <option value="public">公開</option>
+                <option value="private" selected>私密</option>
+            </select>
+        `
+    }
+    str += `
+        <textarea id="context" rows="20" cols="100">${result['context']}</textarea>
+        <button id="update">更新</button>
+    `
+    document.getElementById("display").innerHTML = str;
+    document.getElementById("update").onclick = function(){
+        let title = document.getElementById("title").value;
+        let context = document.getElementById("context").value;
+        let noteID = result['noteID'];
+        let status = document.getElementById("status").value;
+        console.log(noteID, title, context, status);
+        updateNote(noteID, title, context, status);
+    }
+    document.getElementsByName("deleteCollbator").forEach(element => {
+        element.onclick = function(){
+            let collbatorID = element.value;
+            deleteCollbator(result['noteID'], collbatorID);
+        }
+    });
+    document.getElementsByName("updateCollbator").forEach(element => {
+        element.onclick = function(){
+            let collbatorID = element.value;
+            let collbatorRole = document.getElementById(collbatorID).value;
+            console.log(collbatorID, collbatorRole);
+            updateCollbators(result['noteID'], collbatorID, collbatorRole);
+        }
+    });
+}
+
 
 export { getCollbatorNote };
