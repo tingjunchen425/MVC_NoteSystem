@@ -1,5 +1,5 @@
 import config from "./config.js";
-import deleteNote from "./deletePublicNote.js";
+import deleteNote from "./deleteNote.js";
 import { updateNotePage } from "./updateNotePage.js";
 import { newNotePage } from "./newNote.js";
 import { getCollbatorNote } from "./collbatorNote.js";
