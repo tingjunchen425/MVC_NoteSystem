@@ -6,14 +6,24 @@ import { doLogin } from "./doLogin.js"
 import { viewUsers } from "./manageUser.js"
 import userSetting from "./userSetting.js"
 import { getPublicNote } from "./publicNote.js"
+import logout from "./logout.js"
 
 export default function userPage() {
     document.getElementById("display").innerHTML = ""
     let info = userInfo('read');
     console.log(info);
     document.getElementById("user_info").innerHTML = info['userName']
+        + `<span class="user_setting"><button id="setting">⚙️</button></span>`
+        + `<span class='logout'><button id='logout'>登出</button></span>`;
+    document.getElementById("setting").onclick = function () {
+        userSetting(info['userID']);
+    }
     document.getElementById("mynote").onclick = function () {
         getMyNote();
+    }
+    document.getElementById('logout').onclick = function () {
+        userInfo("clear");
+        logout();
     }
     Request().get(config('getUsers'))
     .then(res => {

@@ -3,6 +3,7 @@ import config from "./config.js";
 import userInfo from "./userInfo.js";
 import { viewUsers } from "./manageUser.js";
 import { doLogin } from './doLogin.js';
+import logout from "./logout.js";
 
 export default function userSetting(userID) {
     let data = {
@@ -34,7 +35,13 @@ export default function userSetting(userID) {
                         document.getElementById("user_info").innerHTML = `
                             <span class="user_name">${userName}</span>
                             <span class="user_setting"><button id="setting">⚙️</button></span>
+                            <span id='logout' class='logout'><button id='logout'>登出</button></span>
                         `;
+                        document.getElementById('logout').onclick = function () {
+                            userInfo("clear");
+                            logout();
+                            doLogin();
+                        }
                         document.getElementById('display').innerHTML = '';
                     }
                     else if(response['status'] == 401){

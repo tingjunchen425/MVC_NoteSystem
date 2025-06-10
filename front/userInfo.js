@@ -13,12 +13,19 @@ export default function userInfo(method, userID  = null, userName  = null, roleI
             'roleID': roleID,
             'roleName' : roleName,
         }
+        window.localStorage.setItem("userInfo", JSON.stringify(currentStatus));
+        console.log('userInfo write');
     }
     else if (method == 'read'){
         if (currentStatus == null){
             console.log('status is null');
-            return null;
+            return JSON.parse(window.localStorage.getItem("userInfo"));
         }
+        // if (window.localStorage.getItem("userInfo") == null){
+        //     console.log('status is null');
+        //     return currentStatus;
+        // }
+        // currentStatus = JSON.parse(window.localStorage.getItem("userInfo"));
         console.log('status is not null');
         console.log(currentStatus);
         return currentStatus;

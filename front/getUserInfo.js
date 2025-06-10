@@ -3,6 +3,7 @@ import config from "./config.js";
 import userInfo from "./userInfo.js";
 import { viewUsers } from "./manageUser.js";
 import userSetting from "./userSetting.js";
+import logout from "./logout.js";
 
 export default function getUserInfo(account){
     let data = {
@@ -28,11 +29,23 @@ export default function getUserInfo(account){
                         info['roleID'], 
                         info['roleName']
                     );
+                    let currentStatus = {
+                        'userID': info['userID'],
+                        'userName': info['userName'],
+                        'roleID': info['roleID'],
+                        'roleName' : info['roleName'],
+                    }
                     window.localStorage.setItem("jwtToken", response['token']);
+                    window.localStorage.setItem("userInfo", JSON.stringify(currentStatus));
                     document.getElementById("user_info").innerHTML = `
                         <span class="user_name">${info['userName']}</span>
                         <span class="user_setting"><button id="setting">⚙️</button></span>
+                        <span class='logout'><button id='logout'>登出</button></span>
                     `;
+                    document.getElementById('logout').onclick = function () {
+                        userInfo("clear");
+                        logout();
+                    }
                     
                     document.getElementById("setting").onclick = function(){
                         userSetting(info['userID']);

@@ -6,7 +6,7 @@ export default function startPage(){
                 <button id="publicnote">公開筆記</button>
             </div>
             <div id="user_info">
-                    <button id="doLogin">登入</button>
+                <button id="doLogin">登入</button>
             </div>
         </div>
         <div id="display"></div>
