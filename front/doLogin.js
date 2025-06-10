@@ -7,10 +7,6 @@ import logout from "./logout.js";
 
 function doLogin(){
     if (window.localStorage.getItem("jwtToken") != null){
-        window.localStorage.removeItem("jwtToken");
-    }
-    if (window.localStorage.getItem("userInfo") != null){
-        window.localStorage.removeItem("userInfo");
         logout();
     }
     document.getElementById("display").innerHTML = loginPage();

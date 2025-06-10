@@ -1,5 +1,6 @@
 import Request from "./Request.js";
 import config from "./config.js";
+import logout from "./logout.js";
 
 function viewUsers(){
     Request().get(config('getUsers'))
@@ -23,8 +24,7 @@ function viewUsers(){
         }
         else if(response['status'] == 401){
             alert("請重新登入");
-            userInfo("clear");
-            doLogin();
+            logout();
         }
         else if(response['status'] == 403){
             alert("沒有權限查看使用者列表");
