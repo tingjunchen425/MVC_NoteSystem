@@ -21,7 +21,7 @@ function updateCollbators(noteID, collbatorID, collbatorRole) {
                 }
                 else if (response['status'] == 401){
                     // if (window.localStorage){
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;
@@ -34,7 +34,7 @@ function updateCollbators(noteID, collbatorID, collbatorRole) {
                 // window.localStorage.setItem("jwtToken", response['token']);
                 // }
                 // else{
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;
@@ -60,7 +60,7 @@ function deleteCollbator(noteID, collbatorID) {
                     window.localStorage.setItem("jwtToken", response['token']);
                 }
                 else{
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;
@@ -73,7 +73,7 @@ function deleteCollbator(noteID, collbatorID) {
                 //     window.localStorage.setItem("jwtToken", response['token']);
                 // }
                 // else{
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;
@@ -101,7 +101,7 @@ function addCollbator(noteID, collbatorID, collbatorRole) {
                     window.localStorage.setItem("jwtToken", response['token']);
                 }
                 else{
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;
@@ -113,7 +113,7 @@ function addCollbator(noteID, collbatorID, collbatorRole) {
                 //     window.localStorage.setItem("jwtToken", response['token']);
                 // }
                 // else{
-                    alert('請重新登入');
+                    alert('請登入');
                     userInfo('clear');
                     doLogin();
                     return;

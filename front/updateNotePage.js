@@ -18,7 +18,7 @@ function updateNotePage(noteID){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -36,7 +36,7 @@ function updateNotePage(noteID){
                         window.localStorage.setItem("jwtToken", collbator['token']);
                     }
                     else{
-                        alert('請重新登入');
+                        alert('請登入');
                         userInfo('clear');
                         doLogin();
                         return;
@@ -48,7 +48,7 @@ function updateNotePage(noteID){
                     //     window.localStorage.setItem("jwtToken", collbator['token']);
                     // }
                     // else{
-                        alert('請重新登入');
+                        alert('請登入');
                         userInfo('clear');
                         doLogin();
                         return;
@@ -62,7 +62,7 @@ function updateNotePage(noteID){
             })
         }
         else if (response['status'] == 401) {
-            alert('請重新登入');
+            alert('請登入');
             userInfo('clear');
             doLogin();
             return;

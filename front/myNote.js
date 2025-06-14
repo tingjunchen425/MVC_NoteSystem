@@ -93,7 +93,7 @@ function myNotePage(result){
                     else if(response['status'] == 401){
                         console.log(response)
                         userInfo('clear');
-                        alert('請重新登入');
+                        alert('請登入');
                         doLogin();
                         return;
                     }
@@ -125,7 +125,7 @@ function myNotePage(result){
             else if(response['status'] == 401){
                 console.log(response)
                 userInfo('clear');
-                alert('請重新登入');
+                alert('請登入');
                 doLogin();
                 return;
             }
@@ -147,7 +147,7 @@ function myNotePage(result){
             else if(response['status'] == 401){
                 console.log(response)
                 userInfo('clear');
-                alert('請重新登入');
+                alert('請登入');
                 doLogin();
                 return;
             }

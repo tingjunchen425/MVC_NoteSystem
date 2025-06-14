@@ -23,7 +23,7 @@ function viewUsers(){
             document.getElementById("display").innerHTML = userTable;
         }
         else if(response['status'] == 401){
-            alert("請重新登入");
+            alert("請登入");
             logout();
         }
         else if(response['status'] == 403){

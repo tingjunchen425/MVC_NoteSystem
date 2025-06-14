@@ -16,7 +16,7 @@ export default function deleteNote(noteID){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else {
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -29,7 +29,7 @@ export default function deleteNote(noteID){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
             // else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;

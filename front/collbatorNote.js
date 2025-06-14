@@ -24,7 +24,7 @@ function getCollbatorNote(){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else if (response['status'] == 401){
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -41,7 +41,7 @@ function getCollbatorNote(){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
             // else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -99,7 +99,7 @@ function collbatorNotePage(result){
                     else if(response['status'] == 401){
                         console.log(response)
                         userInfo('clear');
-                        alert('請重新登入');
+                        alert('請登入');
                         doLogin();
                         return;
                      }
@@ -126,7 +126,7 @@ function collbatorNotePage(result){
                     else if(response['status'] == 401){
                         console.log(response)
                         userInfo('clear');
-                        alert('請重新登入');
+                        alert('請登入');
                         doLogin();
                         return;
                      }
@@ -153,7 +153,7 @@ function getUpadateNote(noteID){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else if (response['status'] == 401){
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;

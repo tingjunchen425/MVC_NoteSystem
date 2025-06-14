@@ -45,7 +45,7 @@ function newNote(){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -58,7 +58,7 @@ function newNote(){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
             // else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;

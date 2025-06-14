@@ -21,7 +21,7 @@ export default function updateNote(noteID, title, context, status){
                 window.localStorage.setItem("jwtToken", response['token']);
             }
             else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
@@ -34,7 +34,7 @@ export default function updateNote(noteID, title, context, status){
             //     window.localStorage.setItem("jwtToken", response['token']);
             // }
             // else{
-                alert('請重新登入');
+                alert('請登入');
                 userInfo('clear');
                 doLogin();
                 return;
